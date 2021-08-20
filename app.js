@@ -5,7 +5,11 @@ var uiController = (function() {
         inputValue:".add__value",
         inputBtn: ".add__btn",
         incomeList:".income__list",
-        expenseList:".expenses__list"
+        expenseList:".expenses__list",
+        tusuvLabel:".budget__value",
+        incomeLabel:".budget__income--value",
+        expenseLabel:".budget__expenses--value",
+        percentageLabel:".budget__expenses--percentage"
     };
 
     return {
@@ -32,6 +36,19 @@ var uiController = (function() {
             // for(var i=0; i<fieldsArr.length;i++){
             //     fieldsArr[i].value="";
             // }
+
+        },
+
+        tusviigUzuuleh:function(tusuw){
+            document.querySelector(DOMstrings.tusuvLabel).textContent=tusuw.tusuw;
+            document.querySelector(DOMstrings.incomeLabel).textContent=tusuw.totalsInc;
+            document.querySelector(DOMstrings.expenseLabel).textContent=tusuw.totalsExp;
+            if(tusuw.huwi !== 0){
+                document.querySelector(DOMstrings.percentageLabel).textContent=tusuw.huwi+"%";
+            } else {
+                document.querySelector(DOMstrings.percentageLabel).textContent=tusuw.huwi;
+            }
+            
 
         },
 
@@ -150,9 +167,10 @@ var appController = (function(uiController, financeController) {
         // 4. toswiif tootsoolno
         financeController.tusuvTootsooloh();
         // 5. Etssiin uldegsel, tootsoog delgetsend gargana.
-        var tusuv=financeController.tusviigAvah();
+        var tusuw=financeController.tusviigAvah();
         //6. Toswiin tootsoog delgetsend gargana
-        console.log(tusuv);
+        uiController.tusviigUzuuleh(tusuw);
+
 
 
        
@@ -172,7 +190,13 @@ var appController = (function(uiController, financeController) {
     }
     return {
         init: function(){
-            console.log("application started");
+            console.log("application started...");
+            uiController.tusviigUzuuleh({
+                tusuv: 0,
+                huwi: 0,
+                totalsInc: 0,
+                totalsExp:0
+            });
             setupEventListeners();
         }
     }
